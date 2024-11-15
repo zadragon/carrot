@@ -1,21 +1,19 @@
-import { API_URL } from "../constants";
+import { Suspense } from "react";
+import Category from "../components/Category";
+import Spinner from "../components/Spinner";
 
-async function getBooks() {
-  // await new Promise((resolve) => setTimeout(resolve, 1000));
-  const response = await fetch(`${API_URL}/lists`);
-  const json = await response.json();
-  return json;
+export async function generateMetadata() {
+  return {
+    title: "Home",
+  };
 }
 
-export default async function Home() {
-  const books = await getBooks();
-  console.log(books);
-
+export default function Home() {
   return (
-    <div>
-      {books.results.map((item) => {
-        return item.list_name;
-      })}
+    <div className="xl:w-[1000px] mx-auto p-10 xl:p-0">
+      <Suspense fallback={<Spinner />}>
+        <Category />
+      </Suspense>
     </div>
   );
 }
