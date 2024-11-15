@@ -2,10 +2,17 @@ import React from "react";
 import { Suspense } from "react";
 import BookList from "@/app/components/BookList";
 import Spinner from "@/app/components/Spinner";
+import { getBooks } from "@/app/api";
 
-type Params = Promise<{ id: string }>;
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const { results } = await getBooks(id);
+  return {
+    title: results.list_name,
+  };
+}
 
-const List = async ({ params }: { params: Params }) => {
+const List = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
 
   return (

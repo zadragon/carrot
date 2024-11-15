@@ -1,43 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import { API_URL } from "../constants";
-
-interface IParams {
-  id: string;
-}
-
-interface IResults {
-  list_name: string;
-  books: Book[];
-}
-
-interface Book {
-  primary_isbn10: string;
-  title: string;
-  book_image: string;
-  author: string;
-  amazon_product_url: string;
-}
-
-export const getBooks = async (id: string): Promise<{ results: IResults }> => {
-  try {
-    const response = await fetch(`${API_URL}/list?name=${id}`);
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch books for list: ${id}`);
-    }
-
-    const data = await response.json();
-    return data; // API 응답 데이터를 반환
-  } catch (error) {
-    console.error("Error fetching books:", error); // 오류 로그 출력
-    throw error; // 호출한 곳에 오류를 다시 던짐
-  }
-};
+import { Book, IParams } from "@/app/types";
+import { getBooks } from "@/app/api";
 
 const BookList = async ({ id }: IParams) => {
-  console.log("ok", id);
-
   const { results } = await getBooks(id);
 
   return (

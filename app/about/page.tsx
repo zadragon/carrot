@@ -7,7 +7,12 @@ export async function generateMetadata() {
 }
 
 const About = () => {
-  return <div>about</div>;
+  return (
+    <div className="p-10">
+      <h1 className="text-4xl font-bold pb-2">About us</h1>
+      <p className="leading-5">Welcome to the official explorer for the New York Times Best Seller list explorer. We hope you enjoy your stay!</p>
+    </div>
+  );
 };
 
 export default About;
